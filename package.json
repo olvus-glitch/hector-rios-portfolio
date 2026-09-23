@@ -1,0 +1,8 @@
+{
+  "name": "hector-rios-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multilingual portfolio of Héctor Ríos",
+  "scripts": { "build": "node build.mjs", "dev": "node server.mjs" },
+  "engines": { "node": ">=22" }
+}

@@ -1,0 +1,9 @@
+import { mkdir, copyFile, cp, readFile } from 'node:fs/promises';
+const files = ['index.html', 'styles.css', 'app.js'];
+await mkdir('dist', { recursive: true });
+for (const file of files) await copyFile(file, `dist/${file}`);
+for (const dir of ['assets', 'documents']) await cp(dir, `dist/${dir}`, { recursive: true });
+const html = await readFile('index.html', 'utf8');
+const localLinks = [...html.matchAll(/(?:href|src)="((?:documents|assets)\/[^"?#]+)"/g)].map(match => match[1]);
+for (const path of localLinks) await readFile(path);
+console.log(`Built static portfolio. Verified ${new Set(localLinks).size} linked assets.`);
