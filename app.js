@@ -42,6 +42,11 @@
     const description = {es:'Portafolio de Héctor Ríos. Ingeniería de Sistemas, desarrollo web y fundamentos de arquitectura cloud. Proyectos, experiencia y formación.',en:'Héctor Ríos portfolio. Systems Engineering, web development and cloud architecture fundamentals. Projects, experience and education.',pt:'Portfólio de Héctor Ríos. Engenharia de Sistemas, desenvolvimento web e fundamentos de arquitetura cloud. Projetos, experiência e formação.'}[language];
     document.querySelector('meta[name="description"]').content = description;
     document.querySelector('meta[property="og:description"]').content = description;
+    for (const link of document.querySelectorAll('a[href^="documento.html?doc="]')) {
+      const url = new URL(link.href);
+      url.searchParams.set('lang', language);
+      link.href = `${url.pathname.split('/').pop()}${url.search}`;
+    }
     picker.value = languages.includes(preference) ? preference : 'auto';
   }
   let preference = 'auto';
